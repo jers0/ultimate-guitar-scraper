@@ -35,6 +35,7 @@ An Array of TAB object with this shape:
   rating: 5,                        // Number or null
   numberRates: 2,                   // Number or null
   type: 'tab'                       // String
+  url: 'http://tabs.ultimate-guitar.com/p/pink_floyd/wish_you_were_here_live_tab.htm'                      // String
 }
 ```
 
