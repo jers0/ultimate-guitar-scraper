@@ -1,6 +1,7 @@
 # ultimate-guitar-scraper
 
 [![Dependency Status](https://gemnasium.com/masterT/ultimate-guitar-scraper.svg)](https://gemnasium.com/masterT/ultimate-guitar-scraper)
+[![Codeship Status for masterT/ultimate-guitar-scraper](https://codeship.com/projects/1ba523b0-71e4-0133-047d-66d99a32fdb3/status?branch=master)](https://codeship.com/projects/117063)
 
 It is a scraper for [ultimate-guitar.com](http://www.ultimate-guitar.com/). It means that it uses the Ultimate Guitar's website as an web service to retrieve data. To achieve it, it makes HTTP request, like your browser, and parse the response, which is HTML.
 
