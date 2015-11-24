@@ -5,7 +5,7 @@
 [![TravisCI Status](https://travis-ci.org/masterT/ultimate-guitar-scraper.svg)](https://travis-ci.org/masterT/ultimate-guitar-scraper)
 
 
-It is a scrape that uses [ultimate-guitar.com](http://www.ultimate-guitar.com/) as a web service to extract [tablatures](https://en.wikipedia.org/wiki/Tablature), also called *TAB*.
+It is a scraper that uses [ultimate-guitar.com](http://www.ultimate-guitar.com/) as a web service to extract [tablatures](https://en.wikipedia.org/wiki/Tablature), also called *TAB*.
 
 
 ## Installation
