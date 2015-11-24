@@ -1,9 +1,11 @@
 # ultimate-guitar-scraper
 
+[![NPM](https://nodei.co/npm/ultimate-guitar-scraper.png?downloads=true)](https://nodei.co/npm/ultimate-guitar-scraper/)
 [![Dependency Status](https://gemnasium.com/masterT/ultimate-guitar-scraper.svg)](https://gemnasium.com/masterT/ultimate-guitar-scraper)
-[![Codeship Status for masterT/ultimate-guitar-scraper](https://codeship.com/projects/1ba523b0-71e4-0133-047d-66d99a32fdb3/status?branch=master)](https://codeship.com/projects/117063)
+[![TravisCI Status](https://travis-ci.org/masterT/ultimate-guitar-scraper.svg)](https://travis-ci.org/masterT/ultimate-guitar-scraper)
 
-It is a scraper for [ultimate-guitar.com](http://www.ultimate-guitar.com/). It means that it uses the Ultimate Guitar's website as an web service to retrieve data. To achieve it, it makes HTTP request, like your browser, and parse the response, which is HTML.
+
+It is a scrape that uses [ultimate-guitar.com](http://www.ultimate-guitar.com/) as a web service to extract [tablatures](https://en.wikipedia.org/wiki/Tablature), also called *TAB*.
 
 
 ## Installation
@@ -13,33 +15,34 @@ It is a scraper for [ultimate-guitar.com](http://www.ultimate-guitar.com/). It m
 
 ## Usage
 
-### Search
+### search ( query, callback, [ requestOptions ] )
 
-Search [tablatures](https://en.wikipedia.org/wiki/Tablature), also called TAB.
+#### query
+Type: Object
 
-#### Query Params
+| Name     | Type            | Require | Default              |
+|----------|-----------------|---------|----------------------|
+| bandName | string          | yes     |                      |
+| songName | string          | no      |                      |
+| page     | number          | no      | `1`                  |
+| type     | string or array | no      | `['tabs', 'chords']` |
 
-- **bandName**: String (required)
-- **songName**: String
-- **page**: Number (default: `1`)
-- **type**: Array (values: `['video lessons', 'tabs', 'chords', 'bass tabs', 'guitar pro tabs', 'power tabs', 'drum tabs', 'ukulele chords']`, default: `['chords', 'tabs']`)
+**Available type**: `['video lessons', 'tabs', 'chords', 'bass tabs', 'guitar pro tabs', 'power tabs', 'drum tabs', 'ukulele chords']`
 
-#### Results
+#### callback
+Type: Function ( error, tabs, requestResponse, requestBody )
 
-An Array of TAB object with this shape:
-```js
-{
-  artist: 'Pink Floyd',             // String
-  name: 'Wish You Were Here Live',  // String
-  difficulty: 'intermediate',       // String or null
-  rating: 5,                        // Number or null
-  numberRates: 2,                   // Number or null
-  type: 'tab'                       // String
-  url: 'http://tabs.ultimate-guitar.com/p/pink_floyd/wish_you_were_here_live_tab.htm'                      // String
-}
-```
+- **error**: the error message. `null` if no error.
+- **tabs**: array of TAB (see TAB structure below) `null` if error.
+- **requestResponse**: the original response returned by [request](https://www.npmjs.com/package/request)
+- **requestBody**: the original body returned by [request](https://www.npmjs.com/package/request)
 
-#### Examples
+
+#### requestOptions
+Type: Object
+
+
+### Examples
 Basic usage.
 
 ```js
@@ -58,20 +61,21 @@ ugs.search({
 });
 ```
 
-Using [request](https://www.npmjs.com/package/request) options, such as custom header.
+Using [request](https://www.npmjs.com/package/request) options to pass a custom header. It also use the original response in the callback to get the `server`.
 
 ```js
 var ugs = require('ultimate-guitar-scraper');
 
 var query = {
-  bandName: 'Hall Moon Run'
+  bandName: 'Half Moon Run'
 };
 
-var callback = function(error, tabs) {
+var callback = function(error, tabs, response, body) {
   if (error) {
     console.log(error);
   } else {
     console.log(tabs);
+    console.log('Utlimate Guitar server: ' + response.headers['server']);
   }
 };
 
@@ -84,11 +88,34 @@ var options = {
 ugs.search(query, callback, options);
 ```
 
+### TAB
+
+A *TAB* object looks like this:
+```js
+{
+  artist: 'Pink Floyd',
+  name: 'Wish You Were Here Live',
+  difficulty: 'intermediate',       // can be null
+  rating: 5,                        // can be null
+  numberRates: 2,                   // can be null
+  type: 'tab'
+  url: 'http://tabs.ultimate-guitar.com/p/pink_floyd/wish_you_were_here_live_tab.htm'
+}
+```
+
 
 ## Test
 
 `npm test`
 
+
+## Change Log
+
+#### 0.2.0 (2015-11-24)
+- extract code in `searchURL` that was formatting the query params in new method `formatQuery`
+- better code in `parseTAB` so it parses more *TAB*
+- rename `searchURL` for `generateURL`
+- better doc
 
 ## Contributing
 

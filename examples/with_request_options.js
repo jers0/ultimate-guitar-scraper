@@ -1,14 +1,15 @@
 var ugs = require('../lib/index');
 
 var query = {
-  bandName: 'Hall Moon Run'
+  bandName: 'Half Moon Run'
 };
 
-var callback = function(error, tabs) {
+var callback = function(error, tabs, response, body) {
   if (error) {
     console.log(error);
   } else {
     console.log(tabs);
+    console.log('Utlimate Guitar server: ' + response.headers['server']);
   }
 };
 

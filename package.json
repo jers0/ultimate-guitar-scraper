@@ -1,7 +1,7 @@
 {
   "name": "ultimate-guitar-scraper",
-  "version": "0.1.2",
-  "description": "A scraper for ultimate-guitar.com",
+  "version": "0.2.0",
+  "description": "It is a scrape that uses http://www.ultimate-guitar.com as a web service to extract tablatures, also called TAB.",
   "keywords": [
     "ultimate",
     "guitar",
