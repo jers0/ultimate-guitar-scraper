@@ -1,6 +1,6 @@
 {
   "name": "ultimate-guitar-scraper",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "It is a scraper that uses http://www.ultimate-guitar.com as a web service to extract tablatures, also called TAB.",
   "keywords": [
     "ultimate",
@@ -9,7 +9,10 @@
     "TAB",
     "tablature",
     "music",
-    "sheet"
+    "sheet",
+    "song",
+    "artist",
+    "autocomplete"
   ],
   "main": "lib/index.js",
   "scripts": {
