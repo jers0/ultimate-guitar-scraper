@@ -5,7 +5,7 @@
 [![TravisCI Status](https://travis-ci.org/masterT/ultimate-guitar-scraper.svg)](https://travis-ci.org/masterT/ultimate-guitar-scraper)
 
 
-It is a scraper that uses [ultimate-guitar.com](http://www.ultimate-guitar.com/) as a web service to extract [tablatures](https://en.wikipedia.org/wiki/Tablature), also called *TAB*.
+It is a scraper that uses [ultimate-guitar.com](http://www.ultimate-guitar.com/) as a web service to extract [tablatures](https://en.wikipedia.org/wiki/Tablature), also called *TAB*. There is also an `autocomplete` feature that find `artist` or `song`.
 
 
 ## Installation
@@ -39,7 +39,7 @@ Type: Function ( error, tabs, requestResponse, requestBody )
 
 
 #### requestOptions
-Type: Object
+Type: Object. Options of the HTTP request, made with package [request](https://www.npmjs.com/package/request).
 
 
 ### Examples
@@ -104,12 +104,82 @@ A *TAB* object looks like this:
 ```
 
 
+### autocomplete ( query, callback, [ requestOptions ] )
+
+#### query
+Type: Object
+
+| Name   | Type   | Require               | Default    |
+|--------|--------|-----------------------|------------|
+| query  | string | yes                   |            |
+| artist | string | only if type is 'tab' |            |
+| type   | string | no                    | `'artist'` |
+
+
+**Available type**: `['artist', 'tab']`
+
+
+#### callback
+Type: Function ( error, suggestions, requestResponse, requestBody )
+
+- **error**: the error message. `null` if no error.
+- **suggestions**: array of String that represent `'song'` or `'artist'`.
+- **requestResponse**: the original response returned by [request](https://www.npmjs.com/package/request)
+- **requestBody**: the original body returned by [request](https://www.npmjs.com/package/request)
+
+
+#### requestOptions
+Type: Object. Options of the HTTP request, made with package [request](https://www.npmjs.com/package/request).
+
+
+### Examples
+
+Searching for an `'artist'`.
+
+```js
+var ugs = require('ultimate-guitar-scraper');
+ugs.autocomplete({
+  query: 'Ozzy',
+  type: 'artist'
+}, function(error, suggestions) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(suggestions);
+  }
+});
+```
+
+Searching for a `'song'`.
+
+```js
+var ugs = require('ultimate-guitar-scraper');
+ugs.autocomplete({
+  query: 'Crazy',
+  artist: 'Ozzy Osbourne',
+  type: 'tab'
+}, function(error, suggestions) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(suggestions);
+  }
+});
+```
+
+
 ## Test
 
 `npm test`
 
 
 ## Change Log
+
+#### 0.3.0 (2015-11-30)
+- add new feature `autocomplete`
+- refactor `utils.js`
+- add examples for `autocomplete`
+- add/update specs
 
 #### 0.2.0 (2015-11-24)
 - extract code in `searchURL` that was formatting the query params in new method `formatQuery`
