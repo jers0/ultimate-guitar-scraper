@@ -113,10 +113,10 @@ describe('utils', function() {
     });
   });
 
-  describe('parseTABs', function() {
+  describe('parseListTABs', function() {
     it('parses TABs', function() {
       var html = fs.readFileSync('./spec/request.html');
-      var tabs = utils.parseTABs(html);
+      var tabs = utils.parseListTABs(html);
       expect(Array.isArray(tabs)).toBe(true);
       expect(tabs.length).toBe(52);
     });
