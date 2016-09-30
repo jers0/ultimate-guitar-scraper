@@ -1,6 +1,5 @@
 # ultimate-guitar-scraper
 
-[![NPM](https://nodei.co/npm/ultimate-guitar-scraper.png?downloads=true)](https://nodei.co/npm/ultimate-guitar-scraper/)
 [![Dependency Status](https://gemnasium.com/masterT/ultimate-guitar-scraper.svg)](https://gemnasium.com/masterT/ultimate-guitar-scraper)
 [![TravisCI Status](https://travis-ci.org/masterT/ultimate-guitar-scraper.svg)](https://travis-ci.org/masterT/ultimate-guitar-scraper)
 

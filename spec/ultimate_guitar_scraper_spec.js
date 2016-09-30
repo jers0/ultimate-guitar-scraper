@@ -1,5 +1,5 @@
-var utils = require('../lib/utils')
-var ugs   = require('../lib/index')
+var utils = require('../lib/utils');
+var ugs   = require('../lib/index');
 var fs    = require('fs');
 
 
@@ -28,7 +28,7 @@ var completeSearchQuery = function () {
     bandName: 'Black Keys',
     songName: 'Little Black Submarines',
     type: ['video lessons', 'tabs', 'chords', 'bass tabs', 'guitar pro tabs', 'power tabs', 'drum tabs', 'ukulele chords'],
-    page: 3
+    page: 1
   };
 };
 
@@ -38,7 +38,7 @@ describe('utils', function() {
   describe('encodeParams', function () {
     it('encode params', function () {
       var query = completeSearchQuery();
-      expect(utils.encodeParams(query)).toBe('bandName=Black+Keys&songName=Little+Black+Submarines&type%5B%5D=video+lessons&type%5B%5D=tabs&type%5B%5D=chords&type%5B%5D=bass+tabs&type%5B%5D=guitar+pro+tabs&type%5B%5D=power+tabs&type%5B%5D=drum+tabs&type%5B%5D=ukulele+chords&page=3');
+      expect(utils.encodeParams(query)).toBe('bandName=Black+Keys&songName=Little+Black+Submarines&type%5B%5D=video+lessons&type%5B%5D=tabs&type%5B%5D=chords&type%5B%5D=bass+tabs&type%5B%5D=guitar+pro+tabs&type%5B%5D=power+tabs&type%5B%5D=drum+tabs&type%5B%5D=ukulele+chords&page=1');
     });
   });
 
@@ -103,7 +103,7 @@ describe('utils', function() {
         band_name: 'Black Keys',
         song_name: 'Little Black Submarines',
         type: [ 100, 200, 300, 400, 500, 600, 700, 800 ],
-        page: 3,
+        page: 1,
         view_state: 'advanced',
         tab_type_group: 'text',
         app_name: 'ugt',
