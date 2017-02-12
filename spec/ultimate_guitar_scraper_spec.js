@@ -115,7 +115,7 @@ describe('utils', function() {
 
   describe('parseListTABs', function() {
     it('parses TABs', function() {
-      var html = fs.readFileSync('./spec/request.html');
+      var html = fs.readFileSync('./spec/fixtures/request.html');
       var tabs = utils.parseListTABs(html);
       expect(Array.isArray(tabs)).toBe(true);
       expect(tabs.length).toBe(52);
