@@ -2,6 +2,10 @@ var utils = require('../lib/utils'),
     ugs   = require('../lib/index'),
     fs    = require('fs');
 
+
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
+
+
 var basicSearchQuery = function () {
   return {
     bandName: 'Muse'
