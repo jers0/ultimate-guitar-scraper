@@ -22,7 +22,8 @@
   "license": "MIT",
   "dependencies": {
     "cheerio": "^0.22.0",
-    "request": "^2.79.0"
+    "jasmine": "^2.6.0",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "jasmine": "^2.5.3"

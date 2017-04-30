@@ -1,7 +1,6 @@
-var utils = require('../lib/utils');
-var ugs   = require('../lib/index');
-var fs    = require('fs');
-
+var utils = require('../lib/utils'),
+    ugs   = require('../lib/index'),
+    fs    = require('fs');
 
 var basicSearchQuery = function () {
   return {
@@ -33,14 +32,8 @@ var completeSearchQuery = function () {
 };
 
 
-describe('utils', function() {
 
-  describe('encodeParams', function () {
-    it('encode params', function () {
-      var query = completeSearchQuery();
-      expect(utils.encodeParams(query)).toBe('bandName=Black+Keys&songName=Little+Black+Submarines&type%5B%5D=video+lessons&type%5B%5D=tabs&type%5B%5D=chords&type%5B%5D=bass+tabs&type%5B%5D=guitar+pro+tabs&type%5B%5D=power+tabs&type%5B%5D=drum+tabs&type%5B%5D=ukulele+chords&page=1');
-    });
-  });
+describe('utils', function() {
 
   describe('formatAutocompleteSearchQuery', function () {
     it('is invalid without param query', function () {
@@ -113,40 +106,124 @@ describe('utils', function() {
     });
   });
 
-  describe('parseListTABs', function() {
-    it('parses TABs', function() {
-      var html = fs.readFileSync('./spec/fixtures/request.html');
-      var tabs = utils.parseListTABs(html);
-      expect(Array.isArray(tabs)).toBe(true);
-      expect(tabs.length).toBe(52);
-    });
+  describe("formatAutocompleteQuery", function () {
+
+    // TODO implement this spec.
+    // ...
+
   });
 
 });
 
 
 describe('ultimate-guitar-scraper', function() {
-  it('searches TABs', function (done) {
-    var query = basicSearchQuery();
-    ugs.search(query, function(error, results) {
-     expect(error).toBeNull();
-     expect(Array.isArray(results)).toBe(true);
-     done();
+
+  describe('search', function () {
+    it('searches TABs', function (done) {
+      var query = basicSearchQuery();
+      ugs.search(query, function(error, results) {
+        expect(error).toBeNull();
+        expect(Array.isArray(results)).toBe(true);
+        expect(results.length).toBeGreaterThan(0);
+        done();
+      });
+    });
+
+    it('searches TABs with request options', function (done) {
+      var query = completeSearchQuery();
+      var requestOptions = {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36' }
+      };
+      ugs.search(query, function(error, results, response, body) {
+        expect(error).toBeNull();
+        expect(Array.isArray(results)).toBe(true);
+        expect(results.length).toBeGreaterThan(0);
+
+        expect(response.statusCode).toBe(200);
+        expect(typeof body).toBe('string');
+        done();
+      }, requestOptions);
     });
   });
 
-  it('searches TABs with request options', function (done) {
-    var query = completeSearchQuery();
-    var requestOptions = {
-      headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36' }
-    };
-    ugs.search(query, function(error, results, response, body) {
-      expect(error).toBeNull();
-      expect(Array.isArray(results)).toBe(true);
-      expect(response.statusCode).toBe(200);
-      expect(typeof body).toBe('string');
-      done();
-   }, requestOptions);
+  describe("get", function () {
+    var tabURl;
+
+    beforeEach(function () {
+      tabUrl = 'https://tabs.ultimate-guitar.com/t/the_black_keys/little_black_submarines_ver2_tab.htm';
+    });
+
+    it("get the TAB", function (done) {
+      ugs.get(tabUrl, function(error, tab) {
+        expect(error).toBeNull();
+        expect(typeof tab).toBe('object');
+        expect(typeof tab.name).toBe('string');
+        expect(typeof tab.type).toBe('string');
+        expect(typeof tab.artist).toBe('string');
+        // Optional properties.
+        expect(typeof tab.rating).not.toBe('undefined');
+        expect(typeof tab.numberRates).not.toBe('undefined');
+        expect(typeof tab.difficulty).not.toBe('undefined');
+        done();
+      });
+    });
+
+    it("get the TAB with request options", function (done) {
+      var requestOptions = {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36' }
+      };
+      ugs.get(tabUrl, function(error, tab, response, body) {
+        expect(error).toBeNull();
+        expect(typeof tab).toBe('object');
+        expect(typeof tab.name).toBe('string');
+        expect(typeof tab.type).toBe('string');
+        expect(typeof tab.artist).toBe('string');
+        // Optional properties.
+        expect(typeof tab.rating).not.toBe('undefined');
+        expect(typeof tab.numberRates).not.toBe('undefined');
+        expect(typeof tab.difficulty).not.toBe('undefined');
+
+        expect(response.statusCode).toBe(200);
+        expect(typeof body).toBe('string');
+        done();
+      }, requestOptions);
+    });
+  });
+
+  describe("autocomplete", function () {
+    it("get suggestions for tab", function (done) {
+      var query = {
+        query: 'Crazy',
+        artist: 'Ozzy Osbourne',
+        type: 'tab'
+      };
+      ugs.autocomplete(query, function(error, suggestions) {
+        expect(error).toBeNull();
+        expect(Array.isArray(suggestions)).toBe(true);
+        expect(suggestions.length).toBeGreaterThan(0);
+        done();
+      });
+    });
+
+    it("get suggestions for artist, with request options", function (done) {
+      var requestOptions = {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36' }
+      };
+      var query = {
+        query: 'Ozzy',
+        type: 'artist'
+      };
+      ugs.autocomplete(query, function(error, suggestions, response, body) {
+        expect(error).toBeNull();
+        expect(Array.isArray(suggestions)).toBe(true);
+        expect(suggestions.length).toBeGreaterThan(0);
+
+        expect(response.statusCode).toBe(200);
+        expect(typeof body).toBe('string');
+        done();
+      }, requestOptions);
+    });
+
   });
 
 });

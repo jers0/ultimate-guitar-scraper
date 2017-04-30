@@ -5,12 +5,14 @@
 [![TravisCI Status](https://travis-ci.org/masterT/ultimate-guitar-scraper.svg)](https://travis-ci.org/masterT/ultimate-guitar-scraper)
 
 
-It is a scraper that uses [ultimate-guitar.com](http://www.ultimate-guitar.com/) as a web service to extract [tablatures](https://en.wikipedia.org/wiki/Tablature), also called *TAB*. There is also an `autocomplete` feature that find `artist` or `song`.
+It is a scraper that uses [ultimate-guitar.com](http://www.ultimate-guitar.com/) as a web service to extract [tablatures](https://en.wikipedia.org/wiki/Tablature), also called *TAB*.
+
+There is also an `autocomplete` feature that find `artist` or `song`.
 
 
 ## Installation
 
-`npm install ultimate-guitar-scraper`
+`npm i ultimate-guitar-scraper --save`
 
 
 ## Usage
