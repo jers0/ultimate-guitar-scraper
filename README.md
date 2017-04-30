@@ -9,9 +9,9 @@
 > Rock and roll! 🎸 🎶 r🤘🏻
 
 The scraper allow you to:
-- search TAB by song name and band name
-- get TAB by TAB url
-- suggestion for artist or album
+- Search TAB by song name and band name.
+- Get TAB from its url.
+- Get suggestions for artist or album.
 
 ## installation
 
@@ -33,7 +33,15 @@ Type: `Object`
 | page     | number          | no      | `1`                  |
 | type     | string or array | no      | `['tabs', 'chords']` |
 
-**Available type**: `['video lessons', 'tabs', 'chords', 'bass tabs', 'guitar pro tabs', 'power tabs', 'drum tabs', 'ukulele chords']`
+Available TAB types:
+- `'video lessons'`
+- `'tabs'`
+- `'chords'`
+- `'bass tabs'`
+- `'guitar pro tabs'`
+- `'power tabs'`
+- `'drum tabs'`
+- `'ukulele chords'`
 
 #### callback
 
@@ -41,8 +49,8 @@ Type: `Function (error, tabs, requestResponse, requestBody)`
 
 - **error**: the error message. `null` if no error.
 - **tabs**: array of TAB (see TAB structure below) `null` if error.
-- **requestResponse**: the original response returned by [request](https://www.npmjs.com/package/request)
-- **requestBody**: the original body returned by [request](https://www.npmjs.com/package/request)
+- **requestResponse**: the original response returned by [request](https://www.npmjs.com/package/request).
+- **requestBody**: the original body returned by [request](https://www.npmjs.com/package/request).
 
 
 #### requestOptions
@@ -72,7 +80,7 @@ ugs.search({
 });
 ```
 
-Using [request](https://www.npmjs.com/package/request) options to pass a custom header. It also use the original response in the callback to get the `server`.
+Using [request](https://www.npmjs.com/package/request) options to pass a custom header.
 
 ```js
 var ugs = require('ultimate-guitar-scraper');
@@ -101,7 +109,7 @@ ugs.search(query, callback, options);
 
 ### tabs
 
-An `Array` of *TAB* object that looks like this:
+An `Array` of TAB object that looks like this:
 
 ```js
 {
@@ -130,8 +138,8 @@ Type: `Function(error, tab, requestResponse, requestBody)`
 
 - **error**: the error message. `null` if no error.
 - **tab**: the TAB (see TAB structure below) `null` if error.
-- **requestResponse**: the original response returned by [request](https://www.npmjs.com/package/request)
-- **requestBody**: the original body returned by [request](https://www.npmjs.com/package/request)
+- **requestResponse**: the original response returned by [request](https://www.npmjs.com/package/request).
+- **requestBody**: the original body returned by [request](https://www.npmjs.com/package/request).
 
 #### requestOptions
 
@@ -155,8 +163,6 @@ ugs.get(tabUrl, function(error, tab) {
 ```
 
 #### tab
-
-A TAB object looks like this:
 
 ```js
 {
@@ -199,7 +205,9 @@ Type: `Object`
 | type   | string | no                    | `'artist'` |
 
 
-**Available type**: `['artist', 'tab']`
+Available types:
+- `'artist'`
+- `'tab'`
 
 
 #### callback
@@ -208,8 +216,8 @@ Type: `Function(error, suggestions, requestResponse, requestBody)`
 
 - **error**: the error message. `null` if no error.
 - **suggestions**: array of String that represent `'song'` or `'artist'`.
-- **requestResponse**: the original response returned by [request](https://www.npmjs.com/package/request)
-- **requestBody**: the original body returned by [request](https://www.npmjs.com/package/request)
+- **requestResponse**: the original response returned by [request](https://www.npmjs.com/package/request).
+- **requestBody**: the original body returned by [request](https://www.npmjs.com/package/request).
 
 
 #### requestOptions
@@ -257,7 +265,7 @@ ugs.autocomplete({
 
 ## test
 
-Feature tests are run _daily_, thank to Travis Ci new feature [CRON Jobs](https://docs.travis-ci.com/user/cron-jobs/). This way we know if the scraper is ever broken.
+Feature tests are run _daily_, thank to Travis CI new feature [CRON Jobs](https://docs.travis-ci.com/user/cron-jobs/). This way we know if the scraper is ever broken.
 
 Run the test:
 
