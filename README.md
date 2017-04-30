@@ -4,21 +4,27 @@
 [![Dependency Status](https://gemnasium.com/masterT/ultimate-guitar-scraper.svg)](https://gemnasium.com/masterT/ultimate-guitar-scraper)
 [![TravisCI Status](https://travis-ci.org/masterT/ultimate-guitar-scraper.svg)](https://travis-ci.org/masterT/ultimate-guitar-scraper)
 
+> A scraper for http://www.ultimate-guitar.com
 
-It is a scraper that uses [ultimate-guitar.com](http://www.ultimate-guitar.com/) as a web service to extract [tablatures](https://en.wikipedia.org/wiki/Tablature), also called *TAB*. There is also an `autocomplete` feature that find `artist` or `song`.
+> Rock and roll! 🎸 🎶 r🤘🏻
+
+The scraper allow you to:
+- Search TAB by song name and band name.
+- Get TAB from its url.
+- Get suggestions for artist or album.
+
+## installation
+
+`npm i ultimate-guitar-scraper --save`
 
 
-## Installation
+## usage
 
-`npm install ultimate-guitar-scraper`
-
-
-## Usage
-
-### search ( query, callback, [ requestOptions ] )
+### `search(query, callback [, requestOptions])`
 
 #### query
-Type: Object
+
+Type: `Object`
 
 | Name     | Type            | Require | Default              |
 |----------|-----------------|---------|----------------------|
@@ -27,22 +33,35 @@ Type: Object
 | page     | number          | no      | `1`                  |
 | type     | string or array | no      | `['tabs', 'chords']` |
 
-**Available type**: `['video lessons', 'tabs', 'chords', 'bass tabs', 'guitar pro tabs', 'power tabs', 'drum tabs', 'ukulele chords']`
+Available TAB types:
+- `'video lessons'`
+- `'tabs'`
+- `'chords'`
+- `'bass tabs'`
+- `'guitar pro tabs'`
+- `'power tabs'`
+- `'drum tabs'`
+- `'ukulele chords'`
 
 #### callback
-Type: Function ( error, tabs, requestResponse, requestBody )
+
+Type: `Function (error, tabs, requestResponse, requestBody)`
 
 - **error**: the error message. `null` if no error.
 - **tabs**: array of TAB (see TAB structure below) `null` if error.
-- **requestResponse**: the original response returned by [request](https://www.npmjs.com/package/request)
-- **requestBody**: the original body returned by [request](https://www.npmjs.com/package/request)
+- **requestResponse**: the original response returned by [request](https://www.npmjs.com/package/request).
+- **requestBody**: the original body returned by [request](https://www.npmjs.com/package/request).
 
 
 #### requestOptions
-Type: Object. Options of the HTTP request, made with package [request](https://www.npmjs.com/package/request).
+
+Type: `Object`
+
+Options of the HTTP request, made with package [request](https://www.npmjs.com/package/request).
 
 
-### Examples
+### examples
+
 Basic usage.
 
 ```js
@@ -61,7 +80,7 @@ ugs.search({
 });
 ```
 
-Using [request](https://www.npmjs.com/package/request) options to pass a custom header. It also use the original response in the callback to get the `server`.
+Using [request](https://www.npmjs.com/package/request) options to pass a custom header.
 
 ```js
 var ugs = require('ultimate-guitar-scraper');
@@ -88,9 +107,10 @@ var options = {
 ugs.search(query, callback, options);
 ```
 
-### TAB
+### tabs
 
-A *TAB* object looks like this:
+An `Array` of TAB object that looks like this:
+
 ```js
 {
   artist: 'Pink Floyd',
@@ -104,10 +124,79 @@ A *TAB* object looks like this:
 ```
 
 
-### autocomplete ( query, callback, [ requestOptions ] )
+### `get(tabUrl, callback [, requestOptions])`
+
+#### tabUrl
+
+Type: `String`
+
+The url of the TAB.
+
+#### callback
+
+Type: `Function(error, tab, requestResponse, requestBody)`
+
+- **error**: the error message. `null` if no error.
+- **tab**: the TAB (see TAB structure below) `null` if error.
+- **requestResponse**: the original response returned by [request](https://www.npmjs.com/package/request).
+- **requestBody**: the original body returned by [request](https://www.npmjs.com/package/request).
+
+#### requestOptions
+
+Type: `Object`
+
+Options of the HTTP request, made with package [request](https://www.npmjs.com/package/request).
+
+#### exemple
+
+Basic usage.
+
+```js
+var tabUrl = "https://tabs.ultimate-guitar.com/n/nirvana/smells_like_teen_spirit_ver2_crd.htm";
+ugs.get(tabUrl, function(error, tab) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(tab);
+  }
+});
+```
+
+#### tab
+
+```js
+{
+  name: 'Smells Like Teen Spirit',
+  type: 'chords',
+  artist: 'Nirvana',
+  rating: 4,
+  numberRates: 28,
+  difficulty: null,
+  contentText: '[Intro]\n\nFsus2  Bbsus2  Ab  Db (x4)\n\n\n[Verse Intro]\n\nFsus2  Bbsus2  Ab  Db (x2)\n\n\n...',
+  contentHTML: '[Intro]\n\n<span>Fsus2</span>  <span>Bbsus2</span>  <span>Ab</span>  <span>Db</span> (x4)\n\n\n[Verse Intro]\n\n<span>Fsus2</span>  <span>Bbsus2...'
+}
+```
+
+Content attributes depend on the type.
+
+| Type             | Content attributes                  |
+|------------------|-------------------------------------|
+| `tabs`           | `contentText`, `contentHTML`        |
+| `chords`         | `contentText`, `contentHTML`        |
+| `ukulele chords` | `contentText`, `contentHTML`        |
+| `drum tabs`      | `contentText`, `contentHTML`        |
+| `bass tabs`      | `contentText`, `contentHTML`        |
+| `guitar pro tabs`| `downloadUrl`                       |
+| `power tabs`     | `downloadUrl`                       |
+| `video lessons`  | `contentUrl`                        |
+
+
+
+### `autocomplete(query, callback [, requestOptions])`
 
 #### query
-Type: Object
+
+Type: `Object`
 
 | Name   | Type   | Require               | Default    |
 |--------|--------|-----------------------|------------|
@@ -116,23 +205,29 @@ Type: Object
 | type   | string | no                    | `'artist'` |
 
 
-**Available type**: `['artist', 'tab']`
+Available types:
+- `'artist'`
+- `'tab'`
 
 
 #### callback
-Type: Function ( error, suggestions, requestResponse, requestBody )
+
+Type: `Function(error, suggestions, requestResponse, requestBody)`
 
 - **error**: the error message. `null` if no error.
 - **suggestions**: array of String that represent `'song'` or `'artist'`.
-- **requestResponse**: the original response returned by [request](https://www.npmjs.com/package/request)
-- **requestBody**: the original body returned by [request](https://www.npmjs.com/package/request)
+- **requestResponse**: the original response returned by [request](https://www.npmjs.com/package/request).
+- **requestBody**: the original body returned by [request](https://www.npmjs.com/package/request).
 
 
 #### requestOptions
-Type: Object. Options of the HTTP request, made with package [request](https://www.npmjs.com/package/request).
+
+Type: `Object`
+
+Options of the HTTP request, made with package [request](https://www.npmjs.com/package/request).
 
 
-### Examples
+### examples
 
 Searching for an `'artist'`.
 
@@ -168,30 +263,22 @@ ugs.autocomplete({
 ```
 
 
-## Test
+## test
 
-`npm test`
+Feature tests are run _daily_, thank to Travis CI new feature [CRON Jobs](https://docs.travis-ci.com/user/cron-jobs/). This way we know if the scraper is ever broken.
+
+Run the test:
+
+```bash
+npm test
+```
 
 
-## Change Log
-
-#### 0.3.0 (2015-11-30)
-- add new feature `autocomplete`
-- refactor `utils.js`
-- add examples for `autocomplete`
-- add/update specs
-
-#### 0.2.0 (2015-11-24)
-- extract code in `searchURL` that was formatting the query params in new method `formatQuery`
-- better code in `parseTAB` so it parses more *TAB*
-- rename `searchURL` for `generateURL`
-- better doc
-
-## Contributing
+## contributing
 
 Contribution is welcome! Open an issue first.
 
 
-## License
+## license
 
 MIT.

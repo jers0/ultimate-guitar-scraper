@@ -1,7 +1,7 @@
 {
   "name": "ultimate-guitar-scraper",
-  "version": "0.3.2",
-  "description": "It is a scraper that uses http://www.ultimate-guitar.com as a web service to extract tablatures, also called TAB.",
+  "version": "0.3.3",
+  "description": "A scraper for http://www.ultimate-guitar.com",
   "keywords": [
     "ultimate",
     "guitar",
@@ -22,7 +22,8 @@
   "license": "MIT",
   "dependencies": {
     "cheerio": "^0.22.0",
-    "request": "^2.79.0"
+    "jasmine": "^2.6.0",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "jasmine": "^2.5.3"

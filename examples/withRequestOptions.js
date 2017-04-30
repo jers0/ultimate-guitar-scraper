@@ -1,7 +1,7 @@
 var ugs = require('../lib/index');
 
 var query = {
-  bandName: 'Half Moon Run'
+  bandName: 'Muse'
 };
 
 var callback = function(error, tabs, response, body) {

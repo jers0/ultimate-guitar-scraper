@@ -1,10 +1,12 @@
 var ugs = require('../lib/index');
 
+var TABUrl;
+
 // chords
-// TABUrl = "https://tabs.ultimate-guitar.com/n/nirvana/smells_like_teen_spirit_ver4_crd.htm";
+TABUrl = "https://tabs.ultimate-guitar.com/n/nirvana/smells_like_teen_spirit_ver2_crd.htm";
 
 // video
-TABUrl = "https://tabs.ultimate-guitar.com/n/nirvana/smells_like_teen_spirit_ver3_video_lesson.htm";
+// TABUrl = "https://tabs.ultimate-guitar.com/n/nirvana/smells_like_teen_spirit_ver3_video_lesson.htm";
 
 // guitar pro tabs
 // TABUrl = "https://tabs.ultimate-guitar.com/n/nirvana/smells_like_teen_spirit_ver2_guitar_pro.htm";
