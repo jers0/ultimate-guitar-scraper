@@ -6,6 +6,8 @@
 
 > A scraper for http://www.ultimate-guitar.com
 
+> Rock and roll! 🎸 🎶 r🤘🏻
+
 The scraper allow you to:
 - search TAB by song name and band name
 - get TAB by TAB url
@@ -18,11 +20,11 @@ The scraper allow you to:
 
 ## usage
 
-### `search ( query, callback, [ requestOptions ] )`
+### `search(query, callback [, requestOptions])`
 
 #### query
 
-Type: Object
+Type: `Object`
 
 | Name     | Type            | Require | Default              |
 |----------|-----------------|---------|----------------------|
@@ -35,7 +37,7 @@ Type: Object
 
 #### callback
 
-Type: Function ( error, tabs, requestResponse, requestBody )
+Type: `Function (error, tabs, requestResponse, requestBody)`
 
 - **error**: the error message. `null` if no error.
 - **tabs**: array of TAB (see TAB structure below) `null` if error.
@@ -45,7 +47,9 @@ Type: Function ( error, tabs, requestResponse, requestBody )
 
 #### requestOptions
 
-Type: Object. Options of the HTTP request, made with package [request](https://www.npmjs.com/package/request).
+Type: `Object`
+
+Options of the HTTP request, made with package [request](https://www.npmjs.com/package/request).
 
 
 ### examples
@@ -95,9 +99,10 @@ var options = {
 ugs.search(query, callback, options);
 ```
 
-### TAB
+### tabs
 
-A *TAB* object looks like this:
+An `Array` of *TAB* object that looks like this:
+
 ```js
 {
   artist: 'Pink Floyd',
@@ -111,17 +116,17 @@ A *TAB* object looks like this:
 ```
 
 
-### `get ( tabUrl, callback, [ requestOptions ] ) `
+### `get(tabUrl, callback [, requestOptions])`
 
 #### tabUrl
 
-Type: String
+Type: `String`
 
 The url of the TAB.
 
 #### callback
 
-Type: Function ( error, tab, requestResponse, requestBody )
+Type: `Function(error, tab, requestResponse, requestBody)`
 
 - **error**: the error message. `null` if no error.
 - **tab**: the TAB (see TAB structure below) `null` if error.
@@ -130,9 +135,11 @@ Type: Function ( error, tab, requestResponse, requestBody )
 
 #### requestOptions
 
-Type: Object. Options of the HTTP request, made with package [request](https://www.npmjs.com/package/request).
+Type: `Object`
 
-#### exemples
+Options of the HTTP request, made with package [request](https://www.npmjs.com/package/request).
+
+#### exemple
 
 Basic usage.
 
@@ -147,7 +154,7 @@ ugs.get(tabUrl, function(error, tab) {
 });
 ```
 
-#### TAB
+#### tab
 
 A TAB object looks like this:
 
@@ -166,24 +173,24 @@ A TAB object looks like this:
 
 Content attributes depend on the type.
 
-| Type            | Content attributes                  |
-|-----------------|-------------------------------------|
-| `tabs`          | `contentText`, `contentHTML`        |
-| `chords`        | `contentText`, `contentHTML`        |
-| `ukulele chords`| `contentText`, `contentHTML`        |
-| `drum tabs`     | `contentText`, `contentHTML`        |
-| `bass tabs`     | `contentText`, `contentHTML`        |
+| Type             | Content attributes                  |
+|------------------|-------------------------------------|
+| `tabs`           | `contentText`, `contentHTML`        |
+| `chords`         | `contentText`, `contentHTML`        |
+| `ukulele chords` | `contentText`, `contentHTML`        |
+| `drum tabs`      | `contentText`, `contentHTML`        |
+| `bass tabs`      | `contentText`, `contentHTML`        |
 | `guitar pro tabs`| `downloadUrl`                       |
-| `power tabs`    | `downloadUrl`                       |
+| `power tabs`     | `downloadUrl`                       |
 | `video lessons`  | `contentUrl`                        |
 
 
 
-### `autocomplete ( query, callback, [ requestOptions ] )`
+### `autocomplete(query, callback [, requestOptions])`
 
 #### query
 
-Type: Object
+Type: `Object`
 
 | Name   | Type   | Require               | Default    |
 |--------|--------|-----------------------|------------|
@@ -197,7 +204,7 @@ Type: Object
 
 #### callback
 
-Type: Function ( error, suggestions, requestResponse, requestBody )
+Type: `Function(error, suggestions, requestResponse, requestBody)`
 
 - **error**: the error message. `null` if no error.
 - **suggestions**: array of String that represent `'song'` or `'artist'`.
@@ -206,7 +213,10 @@ Type: Function ( error, suggestions, requestResponse, requestBody )
 
 
 #### requestOptions
-Type: Object. Options of the HTTP request, made with package [request](https://www.npmjs.com/package/request).
+
+Type: `Object`
+
+Options of the HTTP request, made with package [request](https://www.npmjs.com/package/request).
 
 
 ### examples
