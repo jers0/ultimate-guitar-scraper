@@ -6,7 +6,7 @@
 
 > A scraper for http://www.ultimate-guitar.com
 
-> Rock and roll! 🎸 🎶 r🤘🏻
+> Rock and roll! 🎸 🎶 🤘🏻
 
 The scraper allow you to:
 - Search TAB by song name and band name.
